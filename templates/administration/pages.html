@@ -5,6 +5,7 @@
 function add_page(code, name) {
     var req = new Request.JSON({
         url: '/+admin/api',
+        onSuccess: function(response) {window.location='/+admin/pages/' + response.id}
     }).post({
         method: 'add_page'
     });

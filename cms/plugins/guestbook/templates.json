@@ -1,0 +1,8 @@
+{
+    "form_pre": "<form action=\"/+plugins/guestbook/post\" method=\"post\">",
+    "form_post": "<input id=\"guestbook_form_submit\" type=\"submit\" /></form>",
+    "form_name": "<input type=\"text\" name=\"name\" style=\"width: 100%;\" />",
+    "form_content": "<textarea name=\"content\" style=\"width: 100%; height: 120px;\"></textarea>",
+    "form_captcha": "<script type=\"text/javascript\" src=\"http://www.google.com/recaptcha/api/challenge?k=6LfHk7sSAAAAAFyKLBmGUwVGGNM8rpWaAQwQIFwc\"></script><noscript><iframe src=\"http://www.google.com/recaptcha/api/noscript?k=6LfHk7sSAAAAADWUwu_KESc-rByhEKXrlINtI3_1\" height=\"300\" width=\"500\" frameborder=\"0\"></iframe><br><textarea name=\"recaptcha_challenge_field\" rows=\"3\" cols=\"40\"></textarea><input type=\"hidden\" name=\"recaptcha_response_field\" value=\"manual_challenge\"></noscript>",
+    "content": "{% for entry in entries %}<div><h4>{{ entry.name }} <span style=\"font-weight: normal;\">({{ entry.date }})</span>:</h4><div style=\"padding-left: 20px;\">{{ entry.content }}</div></div>{% endfor %}"
+}

@@ -1,0 +1,55 @@
+{% extends "administration/page.html" %}
+
+{% block page %}
+
+<div class="section">
+    <div class="header">
+        <input id="title_entry" style="font-size: 1.1em; padding: 5px 12px 5px 12px; margin: 0px; -moz-box-sizing: border-box; width: 100%;" type="text" style="width: 380px;" value="{{ title }}" />
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="body" style="padding: 0px;">
+        <textarea name="editor">{{ content }}</textarea>
+        <script type="text/javascript">
+            CKEDITOR.config.height = '500px';
+            CKEDITOR.config.resize_enabled = false;
+            CKEDITOR.config.toolbar_Full =
+                [
+                    ['Source'],
+                    ['Cut','Copy','Paste','PasteText','PasteFromWord','-'],
+                    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+                    ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+                    ['BidiLtr', 'BidiRtl'],
+                    '/',
+                    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+                    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+                    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                    ['Link','Unlink','Anchor'],
+                    ['Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+                    '/',
+                    ['Styles','Format','Font','FontSize'],
+                    ['TextColor','BGColor'],
+                    ['Maximize']
+                ];
+
+            editor = CKEDITOR.replace('editor');
+
+            function save_changes(code, name) {
+                var req = new Request.JSON({
+                    url: '/+admin/api',
+                }).post({
+                    method: 'save_page',
+                    id: {{ translation.id }},
+                    title: $('title_entry').value,
+                    content: CKEDITOR.instances.editor.getData()
+                });
+            }
+        </script>
+        <div onclick="javascript: save_changes();" class="button" style="float: right;">
+            Save Changes!
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+
+{% endblock %}

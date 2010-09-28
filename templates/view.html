@@ -1,229 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<link href="/static/page/styles/main.css" rel="stylesheet" type="text/css">
+{% block style %}
+{% endblock %}
+<html>
+	<head>
+    <script src="/static/page/scripts/prototype.js" type="text/javascript"></script>
+    <script src="/static/page/scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+        <title>Holidaylines » {% block title %}{{ title }}{%endblock%}</title>
+		{% block head %}
+		{%endblock%}
+	</head>
+	<body>
+		<div class="page">
+			<div class="header">
+			</div>
+            <div class="navigation">
 
-<head>
-	<title>{{ page.title }}</title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="Geany 0.19" />
+            {% for link in links %}
+                <a href="/{{ link.location.location }}">{{ link.title }}</a>
+            {% endfor %}
 
-    <script type="text/javascript" src="/static/slideshow/js/mootools.js"></script>
-    <script type="text/javascript" src="/static/slideshow/js/slideshow.js"></script>
-
-    <script 
-  src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"
-  type="text/javascript">
-</script>
-
-    <link rel="stylesheet" type="text/css" href="/static/slideshow/css/slideshow.css" media="screen" />
-
-    <style type="text/css">
-    * {
-    }
-
-    body {
-        //background-color: #C1DAFF;
-        background-color: #E7D5B5;
-        background-image: url(/static/images/clouds.png);
-        background-repeat: no-repeat;
-
-        font-size: 13px;
-        font-family: Serif;
-    }
-
-    a {
-        border: none;
-        color: rgb(71, 62, 46);
-        text-decoration: none;
-    }
-
-    #page {
-        width: 1000px;
-        margin: 20px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    #content {
-        margin-bottom: 20px;
-        float: left;
-        width: 640px;
-        padding: 10px;
-
-        -webkit-box-shadow: 0px 0px 5px rgba(255, 255, 255, .6);
-        background-color: rgba(255, 255, 255, .5);
-        border: 1px solid rgba(255, 255, 255, .8);
-    }
-
-    #sidebar {
-        float: right;
-        width: 300px;
-        padding: 10px;
-
-        -webkit-box-shadow: 0px 0px 5px rgba(255, 255, 255, .6);
-        background-color: rgba(255, 255, 255, .5);
-        border: 1px solid rgba(255, 255, 255, .8);
-    }
-
-    #header {
-        margin-bottom: 10px;
-
-        color: rgba(71, 62, 46, .8);
-
-        font-family: Sans;
-        font-size: 4em;
-        text-shadow: 1px 1px 0px rgba(256, 256, 256, .6);
-    }
-
-    #footer {
-        text-align: center;
-        clear: both;
-        color: #333333;
-    }
-
-    #edit {
-        padding: 3px;
-        position: fixed;
-        left: 0px;
-        bottom: 0px;
-
-        font-size: 24px;
-        z-index: 1000;
-    }
-
-    #navigation {
-        margin-bottom: 10px;
-
-        color: rgba(255, 255, 255, .8);
-
-        -webkit-box-shadow: 0px 0px 5px rgba(255, 255, 255, .6);
-        background-color: rgba(71, 62, 46, .6);
-        border: 1px solid rgba(71, 62, 46, .3);
-
-        font-family: Sans;
-        font-size: 1.2em;
-    }
-
-    #navigation .link {
-        padding: 5px 8px 5px 8px;
-        float: left;
-    }
-
-    #navigation .link:hover {
-        background-color: rgba(71, 62, 46, .15);
-    }
-
-    #navigation .link-active {
-        padding: 5px 8px 2px 8px;
-        margin-bottom: 0px;
-        float: left;
-        border-bottom: 3px solid rgba(255, 255, 255, .8);
-        background-color: rgba(71, 62, 46, .3);
-    }
-
-    #navigation a {
-        margin-top: -5px;
-        color: rgba(255, 255, 255, .8);
-    }
-
-    p {
-        font-size: 1em;
-    }
-
-    #tweet ul {
-        margin: 0px;
-        padding: 0px;
-    }
-
-    #tweet li {
-        margin: 0px;
-        margin-bottom: 5px;
-        list-style: none;
-    }
-
-    #admin-bar {
-        display: none;
-        position: fixed;
-        width: 100%;
-        bottom: 0px;
-        left: 0px;
-        background-color: rgba(0, 0, 0, .8);
-
-        color: #FFFFFF;
-    }
-
-    #admin-bar a {
-        margin-left: 5px;
-        color: #FFFFFF;
-    }
-
-    #admin-bar a:hover {
-        color: #FFFFFF;
-        text-decoration: underline;
-    }
-    </style>
-</head>
-
-<body>
-    <div id="page">
-        <div id="header">
-        <img src="/static/images/menorca.png" /> Rutas Menorca
-        </div>
-        <div id="navigation">
-        {% for link in links %}
-        <div class="link"><a href="{{ link.location.location }}">{{ link.title }}</a></div>
-        {% endfor %}
-        <div style="clear: both;"></div>
-        </div>
-        <div id="content">
-            <div id="my_show" class="slideshow" style="width: 640px;">
-              <img src="/static/slideshow/images/1.jpg" alt="Keylin" />
             </div>
-
-            <script type="text/javascript">
-            window.addEvent('domready', function(){
-                var data = {
-                    '1.jpg': { caption: 'Volcano Asención in Ometepe, Nicaragua.' }, 
-                    '2.jpg': { caption: 'A Ceibu tree.' }, 
-                    '3.jpg': { caption: 'The view from Volcano Maderas.' }, 
-                    '4.jpg': { caption: 'Beer and ice cream.' }
-                };
-                var myShow = new Slideshow('my_show', data, {captions: true, controller: true, hu: '/static/slideshow/images/', width: 640});
-            });
-            </script>
-            <div style="margin-top: 20px;">
-            <p>
-                {{ content }}
-            </p>
-            </div>
-        </div>
-        <div id="sidebar">
-            <iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo urlencode(get_permalink($post->ID)); ?>&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:300px; height:60px;"></iframe>
-            
-            <div id="tweet"></div>
-            <script type="text/javascript">
-            getTwitters('tweet', { 
-              id: 'camicavalls', 
-              count: 5,
-              enableLinks: true, 
-              ignoreReplies: true, 
-              clearContents: true,
-              template: '<span style="font-style: italic;">"%text%"</span><br /><span style="font-size: .9em; opacity: .5;"> - %time%</span>'
-            });
-            
-            </script>
-        </div>
-        <div id="footer">
-        © 2010 by Sebastian Billaudelle | Created with Umbrella CMS
-        </div>
-    </div>
-    <div id="admin-bar">
-        <div style="margin: 5px; float: left">☔ Umbrella CMS</div>
-        <div style="margin: 5px; float: right;">
-            <a href="">Edit this page...</a>
-            <a href="">Go to admin page...</a>
-        </div>
-    </div>
-</body>
-
+			<div class="content">
+            {{ content }}
+			</div>
+			<div class="footer">
+				&copy; 2010 by Sebastian Billaudelle - <a href="/+admin" style="font-weight: normal;">View Admin</a>
+			</div>
+		</div>
+		<div class="end">
+		</div>
+	</body>
 </html>

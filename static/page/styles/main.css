@@ -1,0 +1,259 @@
+blockquote {
+    font-style: italic;
+    color: #bbb;
+    border-left: 2px solid #bbb;
+    padding-left: 5px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #888888;
+    border: none;
+}
+
+img {
+    border: none;
+}
+
+a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #205a77;
+}
+
+body {
+    font-family: Sans;
+    font-size: 12px;
+    color: #888888;
+    margin: 0px;
+    background-color: #CFEBFF;
+    background-image: url(/static/page/images/clouds.png);
+    background-repeat: repeat-x;
+}
+
+h1 {
+    color: #205a77;
+}
+
+h2 {
+    color: #205a77;
+    margin: 0px;
+    margin-top: 1.4em;
+    font-size: 1.5em;
+    margin-bottom: .6em;
+}
+
+h3 {
+    color: #205a77;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.3em;
+    margin-bottom: .5em;
+}
+
+h4 {
+    color: #205a77;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1em;
+    margin-top: 1em;
+    margin-bottom: .2em;
+}
+
+h5 {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.1em;
+    margin-bottom: 0em;
+    margin-top: .4em;
+}
+
+h6{
+    margin: 0px;
+    padding: 0px;
+    font-size: 1em;
+    margin-bottom: 0.3em;
+}
+
+ul {
+    margin-top: 5px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.quote {
+    border-left: 2px solid #cccccc;
+    margin-left: 10px;
+    padding-left: 6px;
+    font-style: italic;
+}
+
+code {
+    font-family: monospace;
+    font-size: 0.9 em;
+    color: #100573;
+}
+
+.errorlist {
+    color: red;
+}
+
+.editor {
+    width: 100%;
+    border: 1px solid #bcbcbc;
+    background-color: #ffffff;
+    color: #888888;
+}
+
+.editor:hover {
+    border: 1px solid #aaaaaa;
+}
+
+.editor:focus {
+    border: 1px solid #205a77;
+}
+
+.page {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    background: url(/static/page/images/background.png) repeat-y 0px top;
+}
+
+.end {
+    padding-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    background: url(/static/page/images/end.png) no-repeat 0px top;
+}
+
+input {
+    width: auto;
+    border: 1px solid #bcbcbc;
+    background-color: #ffffff;
+    color: #888888;
+}
+
+input:hover {
+    width: auto;
+    border: 1px solid #aaaaaa;
+    background-color: #ffffff;
+    color: #888888;
+}
+
+input:focus {
+    width: auto;
+    border: 1px solid #205a77;
+    background-color: #ffffff;
+    color: #888888;
+}
+
+textarea {
+    width: auto;
+    border: 1px solid #bcbcbc;
+    background-color: #ffffff;
+    color: #888888;
+}
+
+textarea:hover {
+    width: auto;
+    border: 1px solid #aaaaaa;
+    background-color: #ffffff;
+    color: #888888;
+}
+
+textarea:focus {
+    width: auto;
+    border: 1px solid #205a77;
+    background-color: #ffffff;
+    color: #888888;
+}
+
+
+.sidebar {
+    //background-color: #fafafa;
+    margin: 0px;
+    margin-top: 10px;
+    padding: 20px;
+    float: left;
+    padding-top: 0px;
+    width: 154px;
+    border-right: 1px solid #E8E5DE;
+}
+
+.content {
+    text-align:justify;
+    margin: 0px;
+    font-size: 1em;
+    width: 940px;
+    padding: 30px;
+    padding-top: 0px;
+    line-height: 1.5em;
+}
+
+.content ul {
+    text-align: left;
+}
+
+.img_right {
+    margin-left: 10px;
+    float: right;
+    border: 1px solid #4D4D4D;
+}
+
+.footer {
+    text-align: center;
+    clear: both;
+    padding: 10px;
+}
+
+.header {
+    height: 115px;
+    width: 990px;
+    background: url(/static/page/images/banner.png) no-repeat 0px top;
+    position: relative;
+    border-bottom: 1px solid #205a77;
+    margin-left: 5px;
+}
+
+.navigation {
+    margin-bottom: 20px;
+    width: 978px;
+    margin-left: 5px;
+    padding: 2px;
+    padding-left: 10px;
+    border-bottom: 1px solid #2d7997;
+    background-color: #2d7997;
+    background-image: url(/static/page/images/navigation.png);
+    background-position: bottom;
+}
+
+.navigation a {
+    padding-right: 1em;
+}
+
+.navigation a {
+    line-height: 1.4em;
+    font-size: 1.2em;
+    color: #222222;
+}
+
+.navigation a:hover {
+    color: #444444;
+}

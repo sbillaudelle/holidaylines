@@ -1,0 +1,87 @@
+{% extends "administration/page.html" %}
+
+{% block page %}
+
+<div style="width: 45%; float: left;">
+    <script type="text/javascript">
+    function remove_location(id) {
+        var req = new Request.JSON({
+            url: '/+admin/api',
+            onSuccess: function(response) {
+                $('item_'+response.id).destroy();
+                }
+        }).post({
+            method: 'remove_location',
+            page: {{ page.id }},
+            location: id
+        });
+    }
+    function add_location() {
+        var req = new Request.JSON({
+            url: '/+admin/api',
+            onSuccess: function(response) {
+                var item = new Element('div', {
+                    'class': 'item',
+                    'id': 'item_' + response.id
+                });
+                var domain = new Element('span', {
+                    'style': 'color: #929292;',
+                    'html': 'http://rutasmenorca.com'
+                });
+                var url = new Element('span', {
+                    'html': '/' + response.location
+                });
+                var button = new Element('span', {
+                    'style': 'float: right;',
+                    'class': 'remove_location_button',
+                    'id': response.id,
+                    'html': '[x]'
+                });
+
+                item.grab(domain);
+                item.grab(url);
+                item.grab(button);
+
+                $('location_list').grab(item);
+                }
+        }).post({
+            method: 'add_location',
+            location: $('location_entry').get('value'),
+            page: {{ page.id }},
+        });
+    }
+    </script>
+    <div class="list">
+        <div class="header">
+            Locations...
+        </div>
+        <div id="location_list" class="body">
+            {% for l in page.locations.all %}
+                <div id="item_{{ l.id }}" class="item">
+                    <span style="color: #929292;">http://rutasmenorca.com</span>/{{ l.location }}
+                    <span style="float: right;" class="remove_location_button" id="{{ l.id }}" onclick="javascript: remove_location(this.id);">[x]</span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="footer">
+            <div class="input" style="font-size: 1em; font-family: Mono; font-weight: normal; width: 75%; float: left;">
+                <span style="color: #929292;">http://rutasmenorca.com/</span><input id="location_entry" type="text" style="width: 30%; margin: 0px; padding: 0px; background: none; border: none; -moz-box-shadow: none;"/>
+            </div>
+            <div onclick="javascript: add_location();" class="button" id="add_link" style="width: 12%;">
+                Add!
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+</div>
+<div style="width: 55%; float: right;">
+    <div class="info">
+        <p>You need to make this page available and to assign one or more locations to it under which the page will be accessable.</p>
+        <p>
+            e. g.: <span style="color: #929292;">http://rutasmenorca.com</span>/my_page
+        </p>
+    </div>
+</div>
+<div style="clear: both;"></div>
+
+{% endblock %}

@@ -5,18 +5,10 @@
 function delete_page() {
     var req = new Request.JSON({
         url: '/+admin/api',
+        onSuccess: function() {window.location='/+admin/pages'}
     }).post({
         method: 'delete_page',
         id: {{ page.id }}
-    });
-}
-function add_location() {
-    var req = new Request.JSON({
-        url: '/+admin/api',
-    }).post({
-        method: 'add_location',
-        location: $('location_entry').get('value'),
-        page: {{ page.id }},
     });
 }
 </script>
@@ -25,7 +17,7 @@ function add_location() {
 {% block content %}
 
 <div style="margin: 20px 0px;">
-    <img style="vertical-align: middle;" src="/static/images/icons/page.png" />
+    <img style="vertical-align: middle;" src="/static/admin/images/icons/page.png" />
     <span style="vertical-align: middle; text-decoration: underline; color: #888888; font-size: 2em;">{{ page.title }}</span>
     <div style="float: right;">
         <div class="button plain">
@@ -53,7 +45,7 @@ function add_location() {
 
     {% if apmt.edit %}
     <div class="selector" onclick="javascript: document.getElementById('language_menu').style.display = 'block';" style="position: relative;">
-        English
+        {{ lang }}
         <div id="language_menu" class="menu">
             {% for l in languages %}
                 <div class="option"><a href="/+admin/pages/{{ page.id }}/edit/{{ l.code }}">{{ l.name }}{% if l.default %} <span style="float: right; color: #186291;">default</span>{% endif %}</a></div>

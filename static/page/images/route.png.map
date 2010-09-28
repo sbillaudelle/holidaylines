@@ -1,0 +1,17 @@
+<img src="route.png" width="924" height="223" border="0" usemap="#map" />
+
+<map name="map">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:Sebastian Billaudelle -->
+<area shape="poly" coords="254,93,347,93,346,118,322,120,318,148,293,147,277,121,255,120" href="/images/tour/son_saura.jpg" />
+<area shape="poly" coords="327,123,322,148,314,150,314,169,379,168,378,147,365,147,350,121" href="/images/tour/talaier.jpg" />
+<area shape="poly" coords="346,68,346,89,373,89,376,117,407,118,407,91,429,91,430,70" href="/images/tour/tourqueta.jpg" />
+<area shape="poly" coords="434,42,433,65,466,68,467,94,499,95,497,64,528,64,527,42" href="/images/tour/macarella.jpg" />
+<area shape="poly" coords="523,65,524,89,502,91,500,112,575,115,575,96,560,92,554,65" href="/images/tour/galdana.jpg" />
+<area shape="poly" coords="636,70,638,88,675,92,675,118,711,121,709,95,747,93,743,73,744,73,724,72" href="/images/tour/trebaluger.jpg" />
+<area shape="poly" coords="733,119,734,145,692,145,700,169,795,170,795,149,771,148,768,119" href="/images/tour/escorxada.jpg" />
+<area shape="poly" coords="804,131,804,152,828,151,830,176,838,182,859,184,862,155,886,155,886,130" href="/images/tour/binigaus.jpg" />
+</map>

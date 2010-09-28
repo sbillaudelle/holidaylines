@@ -1,0 +1,82 @@
+{% extends "administration/base.html" %}
+
+{% block head %}
+<script type="text/javascript">
+function toggle_language(code, name) {
+    if($('lang_' + code).className == 'item') {
+        var req = new Request.JSON({
+            url: '/+admin/api',
+            onSuccess: function(response){
+                if(response == true) {
+                    $('lang_' + code).className = 'item-active';
+                }
+            }
+        }).post({
+            method: 'add_language',
+            code: code,
+            name: name
+        });
+    } else {
+        var req = new Request.JSON({
+            url: '/+admin/api',
+            onSuccess: function(response){
+                if(response == true) {
+                    $('lang_' + code).className = 'item';
+                }
+            }
+        }).post({
+            method: 'remove_language',
+            code: code,
+            name: name
+        });
+    }
+}
+</script>
+<script type="text/javascript">
+window.addEvent('domready', function() {
+    foo = new DropDown($('language_selector'));
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="list">
+    <div class="header">
+        Navigation
+    </div>
+    <div class="body">
+
+        {% for link in navigation %}
+            <div class="item">
+                <div style="float: left; width: 40%;">
+                    {{ link.title }}
+                </div>
+                <div style="float: right; width: 60%;">
+                    <span style="color: #929292;">http://rutasmenorca.com/</span>{{ link.location }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="footer">
+        
+                <div style="float: left; width: 40%;">
+                    <div class="input" style="font-size: 1em; font-family: Mono; font-weight: normal; width: 80%; float: left;">
+                        <input id="location_entry" type="text" style="width: 100%; margin: 0px; padding: 0px; background: none; border: none; -moz-box-shadow: none;"/>
+                    </div>
+                </div>
+                <div style="float: right; width: 60%;">
+                    <div class="input" style="font-size: 1em; font-family: Mono; font-weight: normal; width: 75%; float: left;">
+                    <span style="color: #929292;">http://rutasmenorca.com/</span><input id="location_entry" type="text" style="width: 50%; margin: 0px; padding: 0px; background: none; border: none; -moz-box-shadow: none;"/>
+                    
+                </div>
+                <div onclick="javascript: add_location();" class="button" id="add_link" style="width: 12%;">
+            Add!
+        </div>
+                <div style="clear: both;"></div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+{% endblock %}
