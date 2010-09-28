@@ -1,19 +1,34 @@
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.utils.safestring import mark_safe
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 
 import json
 
 from models import Page, PageTranslation, Link, LinkTranslation, Location, Language, Settings
 
 from languages import languages as languages
+import plugins
 
 class AdminPageModeThingy:
     overview = False
     edit = False
     locations = False
     stats = False
-    
+
+
+def plugin_handler(request, plugin, path=None):
+
+    #p = plugins.Plugin('guestbook')
+    print " *** PLUGIN HANDLER *** "
+    p = plugins.Plugin(plugin)
+    p.handle_request(path, request)
+
+    referer = request.META.get('HTTP_REFERER', '')
+    return HttpResponseRedirect(referer)
+
 
 def view(request, path):
 
@@ -39,7 +54,8 @@ def view(request, path):
         try:
             page = PageTranslation.objects.filter(language=lang, page=page).get()
         except:
-            pass
+            settings = Settings()
+            page = PageTranslation.objects.filter(language=Language.objects.filter(code=settings.get('default_language', 'en')).get(), page=page).get()
 
         for link in _links:
             try:
@@ -49,7 +65,9 @@ def view(request, path):
             except:
                 links.append(link)
 
-    content = mark_safe(page.content)
+    p = plugins.Plugin('guestbook')
+
+    content = mark_safe(p.process(page.content))
     title = page.title
 
     return render_to_response('view.html', {
@@ -104,9 +122,17 @@ def admin_api(request):
         try:
             page = Page()
             page.save()
+            trans = PageTranslation()
+            trans.title = "New Page"
+            trans.language = Language.objects.filter(code='en').get()
+            trans.content = "There isn't any content yet."
+            trans.page = page
+            trans.save()
         except Exception, e:
             print e
-        return HttpResponse('true')
+        return HttpResponse(json.dumps({
+            'id': page.id,
+            }))
     elif request.POST['method'] == 'add_link':
         link = Link()
         link.title = request.POST['code']
@@ -121,16 +147,40 @@ def admin_api(request):
         return HttpResponse('')
 
 
+def admin_login(request):
+
+    try:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+    except:
+        user = None
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return HttpResponseRedirect('/+admin')
+    return render_to_response('administration/login.html', RequestContext(request, {}))
+
+
+@login_required
+def admin_logout(request):
+    logout(request)
+    return render_to_response('administration/logout.html', RequestContext(request, {}))
+    
+
+@login_required
 def admin_list_pages(request):
 
     pages = Page.objects.all()
-    return render_to_response('administration/pages.html', {'pages': pages})
+    return render_to_response('administration/pages.html', RequestContext(request, {'pages': pages}))
 
 
+@login_required
 def admin_index(request):
-    return render_to_response('administration/index.html', {})
+    return render_to_response('administration/index.html', RequestContext(request, {}))
 
 
+@login_required
 def admin_languages(request):
 
     langs = []
@@ -144,16 +194,18 @@ def admin_languages(request):
 
     langs.sort()
 
-    return render_to_response('administration/languages.html', {'languages': langs})
+    return render_to_response('administration/languages.html', RequestContext(request, {'languages': langs}))
 
 
+@login_required
 def admin_navigation(request):
 
     navigation = Link.objects.all()
 
-    return render_to_response('administration/navigation.html', {'navigation': navigation})
+    return render_to_response('administration/navigation.html', RequestContext(request, {'navigation': navigation}))
 
 
+@login_required
 def admin_page_overview(request, page):
 
     p = Page.objects.filter(id=page).get()
@@ -163,13 +215,14 @@ def admin_page_overview(request, page):
     apmt = AdminPageModeThingy()
     apmt.overview = True
 
-    return render_to_response('administration/page_overview.html', {
+    return render_to_response('administration/page_overview.html', RequestContext(request, {
         'page': p,
         'languages': langs,
         'apmt': apmt
-        })
+        }))
 
 
+@login_required
 def admin_page_edit(request, page, lang):
 
     p = Page.objects.filter(id=page).get()
@@ -184,7 +237,8 @@ def admin_page_edit(request, page, lang):
     #         p.save()
 
     try:
-        translation = p.translations.filter(language=Language.objects.filter(code=lang).get()).get()
+        active_lang = Language.objects.filter(code=lang).get()
+        translation = p.translations.filter(language=active_lang).get()
     except:
         translation = PageTranslation()
         translation.page = p
@@ -198,16 +252,18 @@ def admin_page_edit(request, page, lang):
     apmt = AdminPageModeThingy()
     apmt.edit = True
 
-    return render_to_response('administration/page_edit.html', {
+    return render_to_response('administration/page_edit.html', RequestContext(request, {
         'page': p,
         'translation': translation,
         'title': title,
         'content': content,
+        'lang': active_lang,
         'languages': langs,
         'apmt': apmt
-        })
+        }))
 
 
+@login_required
 def admin_page_locations(request, page):
 
     p = Page.objects.filter(id=page).get()
@@ -215,12 +271,13 @@ def admin_page_locations(request, page):
     apmt = AdminPageModeThingy()
     apmt.locations = True
 
-    return render_to_response('administration/page_locations.html', {
+    return render_to_response('administration/page_locations.html', RequestContext(request, {
         'page': p,
         'apmt': apmt
-        })
+        }))
 
 
+@login_required
 def admin_page_statistics(request, page):
 
     p = Page.objects.filter(id=page).get()
@@ -228,7 +285,7 @@ def admin_page_statistics(request, page):
     apmt = AdminPageModeThingy()
     apmt.statistics = True
 
-    return render_to_response('administration/page_statistics.html', {
+    return render_to_response('administration/page_statistics.html', RequestContext(request, {
         'page': p,
         'apmt': apmt
-        })
+        }))

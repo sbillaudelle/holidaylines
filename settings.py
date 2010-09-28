@@ -98,3 +98,5 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'cms'
 )
+
+LOGIN_URL = '/+admin/login'
