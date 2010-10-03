@@ -38,6 +38,7 @@ def view(request, path):
         preferred_langs = [lang.split(';')[0].strip() for lang in request.META['HTTP_ACCEPT_LANGUAGE'].split(',')]
         # TODO: Implement priority handling (http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
         lang_code = preferred_langs[0]
+        lang_code = lang_code.split('-')[0]
 
     try:
         lang = Language.objects.filter(code=lang_code).get()
